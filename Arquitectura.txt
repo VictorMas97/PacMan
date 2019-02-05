@@ -1,0 +1,42 @@
+PacManCharacter
+	APacManCharacter
+	BeginPlay
+	Tick
+	SetupPlayerInputComponent
+	OnOverlapBegin
+	MoveForward
+	MoveRight
+	Eat
+	Kill
+
+	int lives
+	float speed
+	bool isUpgraded
+	// int score
+	FVector movement
+
+
+Ghost
+	AGhost
+	BeginPlay
+	Tick
+	ChangePhase
+	Kill
+
+	float speed
+	FVector movement
+	Material blue
+	Material normal
+	
+
+Path
+	APath
+	BeginPlay
+	Tick
+	GetDirection
+
+Collectible
+	int score
+Upgrade
+	float duration
+	
