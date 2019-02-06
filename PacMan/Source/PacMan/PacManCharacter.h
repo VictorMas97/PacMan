@@ -27,6 +27,7 @@ public:
 	void ScoreUp(int _score);
 	void MoveForward(float value);
 	void MoveRight(float value);
+	void Kill(); //EDIT
 
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent * mesh;
@@ -40,5 +41,4 @@ public:
 	int score;
 	int collectiblesToEat;
 	int lifes;
-
 };

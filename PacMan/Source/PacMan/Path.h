@@ -17,7 +17,8 @@ public:
 	UFUNCTION()
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
+	void GetDirection(FVector currentDirction); //EDIT
+
 	UPROPERTY(EditDefaultsOnly, Category = Collectible)
-	UBoxComponent* collider;
-	
+	UBoxComponent* collider;	
 };

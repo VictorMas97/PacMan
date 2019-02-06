@@ -53,8 +53,7 @@ void APacManCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 
 		if (OtherActor->IsA(AUpgrade::StaticClass()))
 		{
-
-			Upgrade(Cast<AUpgrade>(OtherActor)->duration);
+			Upgrade();
 		}
 
 		if (--collectiblesToEat == 0)
@@ -131,3 +130,51 @@ void APacManCharacter::MoveRight(float value)
 {
 	inputDirection.Y = value;
 }
+
+void APacManCharacter::Kill()  //TO DO
+{
+	// What can I do here??
+}
+	if (OtherActor->IsA(ACollectible::StaticClass()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Collectible picked up"));
+		
+		ScoreUp(Cast<ACollectible>(OtherActor)->points);
+		OtherActor->Destroy();
+
+		if (OtherActor->IsA(AUpgrade::StaticClass()))
+		{
+
+			Upgrade(Cast<AUpgrade>(OtherActor)->duration);
+		}
+
+		if (--collectiblesToEat == 0)
+		{
+			// Level won
+			UE_LOG(LogTemp, Warning, TEXT("Won the level"));
+		}
+		
+
+		
+	else if (OtherActor->IsA(AGhost::StaticClass()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Ghost collided"));
+		if (isUpgraded)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("A ghost has been killed"));
+			OtherActor->Destroy();
+			// TP back to his base
+			// Kill
+			// + 200 points for the first, 400 for the second etc.. (in succession)
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Ghost killed you, -1 life"));
+			// TP back to my base
+			// - 1 life
+			if (--lifes == 0)
+			{
+				// Death
+				UE_LOG(LogTemp, Warning, TEXT("You died"));
+			}
+		}

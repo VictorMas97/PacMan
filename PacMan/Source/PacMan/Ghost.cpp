@@ -10,6 +10,9 @@ AGhost::AGhost()
 	staticMesh->AttachTo(collider);
 	RootComponent = collider;
 
+	normalMaterial = CreateDefaultSubobject<UMaterial>(TEXT("Normal Material"));
+	downgradeMaterial = CreateDefaultSubobject<UMaterial>(TEXT("Downgrade Material"));
+
 	movement = FVector{ 0,1,0 };
 	speed = 1;
 }
@@ -17,6 +20,10 @@ AGhost::AGhost()
 void AGhost::BeginPlay()
 {
 	Super::BeginPlay();
+	// Get initial position / ACharacter* myCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0); myCharacter->GetActorLocation();
+	//basePosition =                                    //EDIT
+
+	staticMesh->SetMaterial(0, normalMaterial);
 }
 
 void AGhost::Tick(float DeltaTime)
@@ -30,6 +37,12 @@ void AGhost::ChangeDirection(FVector direction)
 {
 	movement = direction;
 
+}
+
+
+void AGhost::ChangeDirection(FVector direction)
+{
+	movement = direction;
 }
 
 void AGhost::ChangePhase(ghostState newState)

@@ -1,16 +1,19 @@
+***Arquitectura actualizada***
+
 PacManCharacter
-	Kill
+	Kill            //Done
 
 Ghost
+	ChangePhase     //Done
 	ChangePhase
 	Kill
 
 	
 
 Path
-	APath
-	GetDirection
+	APath           //Done
+	GetDirection    //Done
 
 Upgrade
-	float duration
+	float duration  //Done
 	

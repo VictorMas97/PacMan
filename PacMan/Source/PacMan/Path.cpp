@@ -1,7 +1,7 @@
 #include "Path.h"
 #include "Ghost.h"
 
-APath::APath()
+APath::APath() //TO DO
 {
 	PrimaryActorTick.bCanEverTick = false;
 
@@ -16,8 +16,11 @@ void APath::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherA
 	if (OtherActor->IsA(AGhost::StaticClass()))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Ghost crossed here"));
-		// Turn after some seconds so it turns in the middle and not after just entering the collider or think of something else
-	
+		// Turn after some seconds so it turns in the middle and not after just entering the collider or think of something else	
 	}
+}
+
+void APath::GetDirection(FVector currentDirction) //TO DO
+{
 
 }
