@@ -1,27 +1,23 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "Path.h"
+#include "Ghost.h"
 
-
-// Sets default values
 APath::APath()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
+	RootComponent = collider;
+
+	collider->OnComponentBeginOverlap.AddDynamic(this, &APath::OnOverlapBegin);
 }
 
-// Called when the game starts or when spawned
-void APath::BeginPlay()
+void APath::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-	Super::BeginPlay();
+	if (OtherActor->IsA(AGhost::StaticClass()))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Ghost crossed here"));
+		// Turn after some seconds so it turns in the middle and not after just entering the collider or think of something else
 	
-}
-
-// Called every frame
-void APath::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	}
 
 }
-
