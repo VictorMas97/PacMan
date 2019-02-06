@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "PacManGameModeBase.h"
 #include "Runtime/Engine/Public/EngineUtils.h"
 
@@ -16,19 +14,12 @@ void APacManGameModeBase::BeginPlay()
 
 }
 
-void APacManGameModeBase::ScareGhosts()
+void APacManGameModeBase::SetGhostsState(AGhost::ghostState _state)
 {
 	UE_LOG(LogTemp, Warning, TEXT("hola"));
 
-	for (int i = 0; i < ghosts.Num(); i++) {
-		ghosts[i]->ChangePhase(AGhost::ghostState::FLEEING);
-	}
-
-	// delay 5s
-
-	/*for (int i = 0; i < ghosts.Num(); i++) {
-		ghosts[i]->ChangePhase(AGhost::ghostState::CHASING);
-	}*/
-
-
+	for (int i = 0; i < ghosts.Num(); i++)
+		if (_state != AGhost::ghostState::DEAD)
+			ghosts[i]->ChangePhase(_state);
+		
 }

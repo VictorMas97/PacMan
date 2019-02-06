@@ -21,20 +21,6 @@ public:
 
 	void ChangeDirection(FVector direction);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-		UStaticMeshComponent* staticMesh;
-
-	UPROPERTY(EditDefaultsOnly)
-		USphereComponent* collider;
-
-	UPROPERTY(EditAnywhere)
-		float speed;
-
-	FVector movement;
-
-
-};
-
 	enum ghostState
 	{
 		CHASING,
@@ -44,15 +30,23 @@ public:
 
 	void ChangePhase(ghostState newState);
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UStaticMeshComponent* staticMesh;
+
+	UPROPERTY(EditDefaultsOnly)
+		USphereComponent* collider;
+
+	UPROPERTY(EditAnywhere)
 		float speed;
 
 	UPROPERTY(EditAnywhere)
-		UMaterialInterface* normalMaterial; 
+		UMaterialInterface* normalMaterial;
 
 	UPROPERTY(EditAnywhere)
-		UMaterialInterface* scaredMaterial; 
+		UMaterialInterface* scaredMaterial;
 
-
+	FVector movement;
+	FVector base;
 	ghostState currentState;
+};
+

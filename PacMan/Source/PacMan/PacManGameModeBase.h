@@ -18,7 +18,8 @@ class PACMAN_API APacManGameModeBase : public AGameModeBase
 public:
 
 	virtual void BeginPlay() override;
-	void ScareGhosts();
+
+	void SetGhostsState(AGhost::ghostState _state);
 	
 	TArray <AGhost*> ghosts;
 };

@@ -20,7 +20,7 @@ void APath::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherA
 	}
 }
 
-void APath::GetDirection(FVector currentDirction) //TO DO
+void APath::GetDirection(FVector currentDirection) //TO DO
 {
 
 }

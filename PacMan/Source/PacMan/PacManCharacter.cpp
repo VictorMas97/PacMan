@@ -24,6 +24,8 @@ void APacManCharacter::BeginPlay()
 	// Get number of collectibles
 	for (TActorIterator<ACollectible> CollectibleItr(GetWorld()); CollectibleItr; ++CollectibleItr)
 		collectiblesToEat++;
+
+	base = GetActorLocation();
 }
 
 void APacManCharacter::Tick(float DeltaTime)
@@ -47,23 +49,18 @@ void APacManCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 	if (OtherActor->IsA(ACollectible::StaticClass()))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Collectible picked up"));
-		
+
 		ScoreUp(Cast<ACollectible>(OtherActor)->points);
 		OtherActor->Destroy();
 
 		if (OtherActor->IsA(AUpgrade::StaticClass()))
-		{
-			Upgrade();
-		}
-
+			Upgrade(Cast<AUpgrade>(OtherActor)->duration);
+		
 		if (--collectiblesToEat == 0)
 		{
 			// Level won
 			UE_LOG(LogTemp, Warning, TEXT("Won the level"));
 		}
-		
-
-		
 	}
 	else if (OtherActor->IsA(AGhost::StaticClass()))
 	{
@@ -79,6 +76,7 @@ void APacManCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 		else
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Ghost killed you, -1 life"));
+			SetActorLocation(base);
 			// TP back to my base
 			// - 1 life
 			if (--lifes == 0)
@@ -114,11 +112,15 @@ void APacManCharacter::Upgrade(float _duration)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Upgraded!"));
 	isUpgraded = true;
-	((APacManGameModeBase*)GetWorld()->GetAuthGameMode())->ScareGhosts();
+	((APacManGameModeBase*)GetWorld()->GetAuthGameMode())->SetGhostsState(AGhost::ghostState::FLEEING);
 
-	// Timer and deactivate
-	// isUpgraded = false;
-	// Add time so if you take another one it doesnt bug
+	GetWorld()->GetTimerManager().SetTimer(upgradeTimer, this, &APacManCharacter::StopUpgrade, _duration);
+}
+
+void APacManCharacter::StopUpgrade()
+{
+	isUpgraded = false;
+	((APacManGameModeBase*)GetWorld()->GetAuthGameMode())->SetGhostsState(AGhost::ghostState::CHASING);
 }
 
 void APacManCharacter::MoveForward(float value)
@@ -130,51 +132,3 @@ void APacManCharacter::MoveRight(float value)
 {
 	inputDirection.Y = value;
 }
-
-void APacManCharacter::Kill()  //TO DO
-{
-	// What can I do here??
-}
-	if (OtherActor->IsA(ACollectible::StaticClass()))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Collectible picked up"));
-		
-		ScoreUp(Cast<ACollectible>(OtherActor)->points);
-		OtherActor->Destroy();
-
-		if (OtherActor->IsA(AUpgrade::StaticClass()))
-		{
-
-			Upgrade(Cast<AUpgrade>(OtherActor)->duration);
-		}
-
-		if (--collectiblesToEat == 0)
-		{
-			// Level won
-			UE_LOG(LogTemp, Warning, TEXT("Won the level"));
-		}
-		
-
-		
-	else if (OtherActor->IsA(AGhost::StaticClass()))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Ghost collided"));
-		if (isUpgraded)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("A ghost has been killed"));
-			OtherActor->Destroy();
-			// TP back to his base
-			// Kill
-			// + 200 points for the first, 400 for the second etc.. (in succession)
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Ghost killed you, -1 life"));
-			// TP back to my base
-			// - 1 life
-			if (--lifes == 0)
-			{
-				// Death
-				UE_LOG(LogTemp, Warning, TEXT("You died"));
-			}
-		}

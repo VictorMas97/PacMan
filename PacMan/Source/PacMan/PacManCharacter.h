@@ -24,10 +24,10 @@ public:
 
 	void Move();
 	void Upgrade(float _duration);
+	void StopUpgrade();
 	void ScoreUp(int _score);
 	void MoveForward(float value);
 	void MoveRight(float value);
-	void Kill(); //EDIT
 
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent * mesh;
@@ -35,10 +35,12 @@ public:
 	UPROPERTY(EditAnywhere)
 	float speed;
 
+	FTimerHandle upgradeTimer;
 	FVector inputDirection;
 	FVector movementDirection;
 	bool isUpgraded;
 	int score;
 	int collectiblesToEat;
 	int lifes;
+	FVector base;
 };

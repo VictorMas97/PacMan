@@ -15,10 +15,10 @@ public:
 	APath();
 
 	UFUNCTION()
-	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+		void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	void GetDirection(FVector currentDirction); //EDIT
+	void GetDirection(FVector currentDirection);
 
 	UPROPERTY(EditDefaultsOnly, Category = Collectible)
-	UBoxComponent* collider;	
+		UBoxComponent* collider;	
 };
