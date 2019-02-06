@@ -13,5 +13,7 @@ class PACMAN_API AUpgrade : public ACollectible
 public:	
 
 	AUpgrade() : ACollectible() {}
-	
+
+	UPROPERTY(EditAnywhere, Category = Upgrade)
+		float duration;
 };

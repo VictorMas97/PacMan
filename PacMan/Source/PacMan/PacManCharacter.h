@@ -23,7 +23,7 @@ public:
 	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 	void Move();
-	void Upgrade();
+	void Upgrade(float _duration);
 	void ScoreUp(int _score);
 	void MoveForward(float value);
 	void MoveRight(float value);

@@ -21,6 +21,16 @@ public:
 
 	void ChangeDirection(FVector direction);
 
+	enum ghostState
+	{
+		CHASING,
+		FLEEING,
+		DEAD
+	};
+
+	void ChangePhase(ghostState newState);
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* staticMesh;
 
@@ -30,7 +40,14 @@ public:
 	UPROPERTY(EditAnywhere)
 		float speed;
 
+	UPROPERTY(EditAnywhere)
+		UMaterialInterface* normalMaterial; 
+
+	UPROPERTY(EditAnywhere)
+		UMaterialInterface* scaredMaterial; 
+
+
 	FVector movement;
 
-
+	ghostState currentState;
 };

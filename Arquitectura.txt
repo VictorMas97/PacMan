@@ -4,8 +4,7 @@ PacManCharacter
 Ghost
 	ChangePhase
 	Kill
-	Material blue
-	Material normal
+
 	
 
 Path

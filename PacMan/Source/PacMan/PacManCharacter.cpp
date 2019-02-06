@@ -2,6 +2,7 @@
 #include "Components/InputComponent.h"
 #include "Runtime/Engine/Public/EngineUtils.h"
 #include "Collectible.h"
+#include "PacManGameModeBase.h"
 #include "Upgrade.h"
 #include "Ghost.h"
 
@@ -52,7 +53,8 @@ void APacManCharacter::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 
 		if (OtherActor->IsA(AUpgrade::StaticClass()))
 		{
-			Upgrade();
+
+			Upgrade(Cast<AUpgrade>(OtherActor)->duration);
 		}
 
 		if (--collectiblesToEat == 0)
@@ -109,11 +111,12 @@ void APacManCharacter::ScoreUp(int _score)
 	// Update HUD
 }
 
-void APacManCharacter::Upgrade()
+void APacManCharacter::Upgrade(float _duration)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Upgraded!"));
 	isUpgraded = true;
-	// Make every ghost run 
+	((APacManGameModeBase*)GetWorld()->GetAuthGameMode())->ScareGhosts();
+
 	// Timer and deactivate
 	// isUpgraded = false;
 	// Add time so if you take another one it doesnt bug
